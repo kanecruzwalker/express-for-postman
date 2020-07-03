@@ -39,6 +39,10 @@ app.post('/signin', (req,res) => {
         }
 })
 
+app.post('/register', (req,res) => {
+    res.send("I am working");
+})
+
 app.listen(3000, ()=> {
     console.log("Server listening on PORT 3000");
 })
