@@ -27,7 +27,7 @@ const database = {
 
 
 app.get('/', (req,res) => {
-    res.send("Root Page Works");
+    res.send(database.users);
 })
 
 app.post('/signin', (req,res) => {
@@ -40,7 +40,18 @@ app.post('/signin', (req,res) => {
 })
 
 app.post('/register', (req,res) => {
-    res.send("I am working");
+    const { email, name, password } = req.body
+    
+    database.users.push({
+        id:'789',
+        name: name,
+        email: email,
+        password: password,
+        joined: new Date()
+    })
+
+    res.json(database.users[database.users.length-1]);
+    
 })
 
 app.listen(3000, ()=> {
