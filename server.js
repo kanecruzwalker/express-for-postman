@@ -3,7 +3,9 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require('cors');
 const app = express();
-const knex = require('knex')({
+const knex = require('knex')
+
+const db = knex({
     client: 'pg',
     connection: {
       host : '127.0.0.1',
@@ -13,7 +15,7 @@ const knex = require('knex')({
     }
   });
 
-knex.select('*').from('users').then(data => {
+db.select('*').from('users').then(data => {
   console.log(data);
 });
 
