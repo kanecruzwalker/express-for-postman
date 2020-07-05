@@ -76,19 +76,17 @@ app.post('/signin', (req,res) => {
 app.post('/register', (req,res) => {
     const { email, name, password } = req.body
 
+    db('users').insert({
+        email: email,
+        name: name,
+        joined: new Date()
+    }).then(console.log)
+    
+    res.json(database.users[database.users.length-1]);
+    
     // bcrypt.hash(password, null, null, function(err, hash) {
     //     console.log(hash);
     // });
-    
-    database.users.push({
-        id:'789',
-        name: name,
-        email: email,
-        joined: new Date()
-    })
-
-    res.json(database.users[database.users.length-1]);
-    
 })
 
 app.get('/profile/:id', (req,res) => {
