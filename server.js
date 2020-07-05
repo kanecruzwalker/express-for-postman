@@ -30,7 +30,7 @@ app.get('/', (req,res) => {
     res.send(database.users);
 })
 
-app.post('/signin', (req, res) => {Signin.handleSignin(req, res, db, bcrypt)})
+app.post('/signin', Signin.handleSignin(db, bcrypt))
 
 app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})
 
