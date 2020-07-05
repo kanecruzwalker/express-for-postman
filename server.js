@@ -5,6 +5,8 @@ const cors = require('cors');
 const app = express();
 const knex = require('knex');
 const register = require('./controllers/Register');
+const signin = require('./controllers/Signin');
+const Signin = require("./controllers/Signin");
 
 const db = knex({
     client: 'pg',
@@ -27,24 +29,7 @@ app.get('/', (req,res) => {
     res.send(database.users);
 })
 
-app.post('/signin', (req,res) => {
-    db.select('email', 'hash').from('login')
-    .where('email', '=', req.body.email)
-    .then(data => {
-        const isValid = bcrypt.compareSync(req.body.password, data[0].hash); // true
-        if(isValid){
-            return db.select('*').from('users')
-            .where('email', '=', req.body.email)
-            .then(user => {
-                res.json(user[0])
-            })
-            .catch(err => res.status(400).json('unable to get user'))
-        }else{
-            res.status(400).json('wrong credentials')
-        }
-    })
-    .catch(err => res.status(400).json('wrong credentails'))
-})
+app.post('/signin', (req, res) => {Signin.handleSignin(req, res, db, bcrypt)})
 
 app.post('/register', (req, res) => {register.handleRegister(req, res, db, bcrypt)})
 
