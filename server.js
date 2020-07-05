@@ -3,6 +3,18 @@ const bodyParser = require("body-parser");
 const bcrypt = require("bcrypt-nodejs");
 const cors = require('cors');
 const app = express();
+const knex = require('knex')({
+    client: 'pg',
+    connection: {
+      host : '127.0.0.1',
+      user : 'stone',
+      password : '',
+      database : 'face-recognition'
+    }
+  });
+
+  const dbConnected =  knex.select('*').from('users');
+  console.log(dbConnected);
 
 app.use(bodyParser.json());
 app.use(cors())
