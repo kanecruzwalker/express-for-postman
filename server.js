@@ -13,8 +13,9 @@ const knex = require('knex')({
     }
   });
 
-  const dbConnected =  knex.select('*').from('users');
-  console.log(dbConnected);
+knex.select('*').from('users').then(data => {
+  console.log(data);
+});
 
 app.use(bodyParser.json());
 app.use(cors())
